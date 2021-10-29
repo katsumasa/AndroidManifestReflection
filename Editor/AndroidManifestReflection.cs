@@ -126,13 +126,11 @@ namespace UTJ.Android.Extensions
             return (bool)method.Invoke(mAndroidManifestObject, new object[] { activity, configChanges });
         }
 
-
         public bool EnableVrMode(string activity)
         {
             var method = mAndroidManifestType.GetMethod("EnableVrMode");
             return (bool)method.Invoke(mAndroidManifestObject, new object[] { activity });
         }
-        
 
         public bool SetResizableActivity(string activity, bool value)
         {
@@ -146,21 +144,17 @@ namespace UTJ.Android.Extensions
             return (bool)method.Invoke(mAndroidManifestObject, new object[] { activity, value });
         }
 
-
         public bool RenameActivity(string src, string dst)
         {
             var method = mAndroidManifestType.GetMethod("RenameActivity");
             return (bool)method.Invoke(mAndroidManifestObject, new object[] { src, dst });
         }
 
-
-
-        public bool SetActivityAndroidAttribute(string activity, string name, string val)
+        private bool SetActivityAndroidAttribute(string activity, string name, string val)
         {
             var method = mAndroidManifestType.GetMethod("SetActivityAndroidAttribute",BindingFlags.NonPublic|BindingFlags.Instance);
             return (bool)method.Invoke(mAndroidManifestObject, new object[] { activity,name, val });
         }
-
 
         public string GetActivityWithLaunchIntent()
         {
