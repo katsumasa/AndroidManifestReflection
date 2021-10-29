@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEditor;
 using NUnit.Framework;
 using UnityEngine.TestTools;
-using UTJ.Android;
+using UTJ.Android.Extensions;
 
 
 public class AndroidManifestReflectionTest

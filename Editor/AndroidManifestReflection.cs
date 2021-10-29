@@ -7,7 +7,7 @@ using UnityEngine;
 
 
 
-namespace UTJ.Android
+namespace UTJ.Android.Extensions
 {
     public class AndroidManifestReflection
     {
