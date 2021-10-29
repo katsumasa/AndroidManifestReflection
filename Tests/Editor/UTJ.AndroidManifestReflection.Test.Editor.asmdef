@@ -1,0 +1,18 @@
+{
+    "name": "UTJ.AndroidManifestReflection.Test.Editor",
+    "references": [
+        "GUID:0acc523941302664db1f4e527237feb3",
+        "GUID:815416d7e1ac6ff4ea312a82aa7ac1ce"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
