@@ -2,7 +2,7 @@
 
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/katsumasa/AndroidManifestReflection)
 
-Package To edit AndroidManifest.xml in UnityEditor.
+UnityEditor上で、AndroidManifest.xmlを編集する為のパッケージ
 
 ## 概要
 
@@ -16,22 +16,22 @@ Unity2019.4以上
 
 ## インストール
 
-### using git
+### コンソールからgitコマンドを使用する場合
 
 ```:console
 git clone https://github.com/katsumasa/AndroidManifestReflection.git
 ```
 
-### using Unity Package Manager
+### Unity Package Managerを使用する場合
 
 ![image](https://user-images.githubusercontent.com/29646672/136918028-7236dbf2-2b47-4ea2-9390-61ea57b5e107.png)
 
-1. Click the add  button in the status bar.
-2. The options for adding packages appear.
-3. Select Add package from git URL from the add menu. A text box and an Add button appear.
-4. Enter https://github.com/katsumasa/AndroidManifestReflection.git in the text box and click Add.
+1. ステータスバーの`add`ボタンをクリックします。
+2. パッケージを追加するためのオプションが表示されます。
+3. 追加メニューから「Add package from git URL」を選択します。テキストボックスと追加ボタンが表示されます。
+4. テキストボックスに`https://github.com/katsumasa/AndroidManifestReflection.git`を入力し、Addをクリックします。
 
-[Click here for details.](https://docs.unity3d.com/2019.4/Documentation/Manual/upm-ui-giturl.html)
+[詳細はこちら](https://docs.unity3d.com/2019.4/Documentation/Manual/upm-ui-giturl.html)
 
 ## API Reference
 
@@ -60,9 +60,7 @@ public class AndroidManifestPost : IPostGenerateGradleAndroidProject
       void IPostGenerateGradleAndroidProject.OnPostGenerateGradleAndroidProject(string path)
       {
           var androidManifest = new AndroidManifestReflection(path);
-          var androidManifest = new AndroidManifestReflection(path);
       }
-
  }
 ```
 
