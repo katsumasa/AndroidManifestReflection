@@ -108,6 +108,35 @@ public void Save()
 
 変更を加えた内容をAndroidManifest.xmlへ書き戻します。
 
+## Sampleコード
+
+下記に[IPostGenerateGradleAndroidProject.OnPostGenerateGradleAndroidProject](https://docs.unity3d.com/ja/current/ScriptReference/Android.IPostGenerateGradleAndroidProject.OnPostGenerateGradleAndroidProject.html)からAndroidManifest.xmlを編集するサンプルコードを記載します。
+
+```:cs
+using System.IO;
+using UnityEditor.Android;
+using UTJ.Android.Extensions;
+
+
+public class AndroidManifestPost : IPostGenerateGradleAndroidProject
+{
+    public int callbackOrder { get { return 0; } }
+
+    void IPostGenerateGradleAndroidProject.OnPostGenerateGradleAndroidProject(string path)
+    {
+        path = Path.Combine(path, "src");
+        path = Path.Combine(path, "main");
+        path = Path.Combine(path, "AndroidManifest.xml");
+
+        var androidManifest = new AndroidManifestReflection(path);
+        androidManifest.SetDebuggableActivity("com.unity3d.player.UnityPlayerActivity", true);
+        androidManifest.AddApplicationMetaDataAttribute("com.android.graphics.developerdriver.enable", "true");
+        androidManifest.Save();
+    }
+
+}
+```
+
 ## その他
 
 フィードバックやコメントをお待ちしております。
