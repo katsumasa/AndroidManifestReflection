@@ -15,26 +15,43 @@ namespace UTJ.Android.Extensions
         System.Type mAndroidXmlDicumentType;
         object mAndroidManifestObject;
 
-       
+#if UNITY_2021_1_OR_NEWER
+        string m_Path;
+#endif
+
 
         public AndroidManifestReflection(string path)
         {
+            //var androidManifestPath = Path.Combine(path,"src","main", "AndroidManifest.xml");
             try
             {
+#if UNITY_2021_1_OR_NEWER
+                m_Path = path;
+                // public classからUnityEditor.Android.Extensionsのアセンブリを引く
+                var assembly = Assembly.GetAssembly(typeof(Unity.Android.Gradle.AndroidProjectExtensions));
+
+                // 基底クラスのtypeも取得しておく
+                mAndroidXmlDicumentType = assembly.GetType("Unity.Android.Gradle.AndroidXmlDocument");
+
+                // AndroidManifestのSystem.Typeを取得する
+                mAndroidManifestType = assembly.GetType("Unity.Android.Gradle.AndroidManifest");
+
+                var content = File.ReadAllText(path);
+                mAndroidManifestObject = mAndroidManifestType.GetConstructor(new[] { typeof(string) }).Invoke(new object[] { content });
+#else
                 // public classからUnityEditor.Android.Extensionsのアセンブリを引く
                 var assembly = Assembly.GetAssembly(typeof(UnityEditor.Android.ADB));
-
+                
                 // 基底クラスのtypeも取得しておく
                 mAndroidXmlDicumentType = assembly.GetType("UnityEditor.AndroidXmlDocument");
 
                 // AndroidManifestのSystem.Typeを取得する
                 mAndroidManifestType = assembly.GetType("UnityEditor.AndroidManifest");
 
-                //var androidManifestPath = Path.Combine(path,"src","main", "AndroidManifest.xml");
-
                 mAndroidManifestObject = mAndroidManifestType.GetConstructor(new[] { typeof(string) }).Invoke(new object[] { path });
-            } 
-            catch(System.Exception e)
+#endif
+            }
+            catch (System.Exception e)
             {
                 Debug.LogException(e);
             }            
@@ -287,6 +304,9 @@ namespace UTJ.Android.Extensions
 
         public string Save()
         {
+#if UNITY_2021_1_OR_NEWER
+            return SaveAs(m_Path);
+#else
             var methodInfos = mAndroidManifestType.GetMethods();
             for(var i = 0; i < methodInfos.Length; i++)
             {
@@ -296,12 +316,20 @@ namespace UTJ.Android.Extensions
                 }
             }
             return null;
+#endif
         }
 
         public string SaveAs(string path)
         {
+#if UNITY_2021_1_OR_NEWER
+            var method = mAndroidManifestType.GetMethod("GetContents");
+            var contents = (string)method.Invoke(mAndroidManifestObject, new object[] {});
+            File.WriteAllText(path, contents);
+            return path;
+#else
             var method = mAndroidManifestType.GetMethod("SaveAs");
             return (string)method.Invoke(mAndroidManifestObject, new object[] { path});
+#endif
         }
 
         public bool SetDebuggableActivity(string activity,bool value)
